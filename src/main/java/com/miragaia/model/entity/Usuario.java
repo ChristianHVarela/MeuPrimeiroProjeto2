@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.miragaia.dto.UsuarioDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +33,10 @@ public class Usuario {
 	
 	private String senha;
 
+	
+	public Usuario(UsuarioDTO userDto) {
+		this.nome = userDto.getNome();
+		this.email = userDto.getEmail();
+		this.senha = userDto.getSenha();
+	}
 }
