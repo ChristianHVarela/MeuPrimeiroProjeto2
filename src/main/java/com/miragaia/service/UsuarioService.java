@@ -54,5 +54,7 @@ public class UsuarioService {
 		}
 	}
 	
-
+	public Optional<Usuario> findById(Long id) {
+		return repository.findById(id);
+	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.miragaia.dto.LancamentoDTO;
 import com.miragaia.enuns.StatusLancamento;
 import com.miragaia.enuns.TipoLancamento;
 
@@ -56,4 +57,12 @@ public class Lancamento {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusLancamento status;
+	
+	public Lancamento(LancamentoDTO lancamentoDTO) {
+		this.id = lancamentoDTO.getId();
+		this.descricao = lancamentoDTO.getDescricao();
+		this.ano = lancamentoDTO.getAno();
+		this.mes = lancamentoDTO.getMes();
+		this.valor = lancamentoDTO.getValor();
+	}
 }
