@@ -54,6 +54,7 @@ public class LancamentoService {
 		atualizar(lancamento);
 	}
 	
+	@Transactional
 	public List<Lancamento> buscar(Lancamento lancamento){
 		Example example = Example.of(lancamento, ExampleMatcher.matching()
 				.withIgnoreCase().withStringMatcher(StringMatcher.CONTAINING));
@@ -79,6 +80,7 @@ public class LancamentoService {
 		}
 	}
 	
+	@Transactional
 	public Lancamento converterDTO(LancamentoDTO dto) {
 		Lancamento lancamento = new Lancamento(dto);
 		if(dto.getStatus() != null) {
@@ -92,7 +94,17 @@ public class LancamentoService {
 		return lancamento;
 	}
 	
+	@Transactional
 	public Optional<Lancamento> findById(Long id) {
 		return repository.findById(id);
+	}
+	
+	@Transactional
+	public BigDecimal obterSaldoDoUsuario(Long id) {
+		BigDecimal despesas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.DESPESA);
+		BigDecimal receitas = repository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA);
+		despesas = despesas == null ? BigDecimal.ZERO : despesas;
+		receitas = receitas == null ? BigDecimal.ZERO : receitas;
+		return receitas.subtract(despesas);
 	}
 }
