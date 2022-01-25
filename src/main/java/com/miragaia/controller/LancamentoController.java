@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.miragaia.dto.AtualizaStatusDTO;
 import com.miragaia.dto.LancamentoDTO;
 import com.miragaia.enuns.StatusLancamento;
+import com.miragaia.enuns.TipoLancamento;
 import com.miragaia.exception.RegraNegocioException;
 import com.miragaia.model.entity.Lancamento;
 import com.miragaia.model.entity.Usuario;
@@ -73,11 +74,13 @@ public class LancamentoController {
 				@RequestParam(value = "descricao", required = false)String descricao,
 				@RequestParam(value = "mes", required = false)Integer mes,
 				@RequestParam(value = "ano", required = false)Integer ano,
+				@RequestParam(value = "tipo", required = false)String tipo,
 				@RequestParam("usuario")Long idUsuario) {
 		Lancamento filtro = new Lancamento();
 		filtro.setAno(ano);
 		filtro.setMes(mes);
 		filtro.setDescricao(descricao);
+		filtro.setTipo(TipoLancamento.valueOf(tipo));
 		Optional<Usuario> user = usuarioService.findById(idUsuario);
 		if(!user.isPresent()) {
 			return ResponseEntity.badRequest().body("Usuario não encontrado.");

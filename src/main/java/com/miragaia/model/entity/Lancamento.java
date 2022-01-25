@@ -44,7 +44,7 @@ public class Lancamento {
 	private Integer ano;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
 	private BigDecimal valor;
